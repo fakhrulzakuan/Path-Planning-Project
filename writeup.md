@@ -8,10 +8,10 @@ How I do limit the speed is in `line 118`. I limit the maximum speed at 49.5 mph
 double maximum_ref_vel = 49.5;
 ```
 
-I apply the limit between `line 256 to 260` 
+I apply the limit between `line 261 to 265` 
 ```
 //To avoid jerk and only limit to maximum speed that has been set earlier. 
-ref_vel += 1.0;
+ref_vel += 0.524;
 if (ref_vel > maximum_ref_vel)
     {
     ref_vel = maximum_ref_vel;
@@ -20,12 +20,12 @@ if (ref_vel > maximum_ref_vel)
 
 ## Max Acceleration and Jerk are not Exceeded. 
 
-I avoided the jerk by incrementing the speed by 1 mph for every message event. 
+I avoided the jerk by incrementing the speed by 0.524 mph and decrementing by 0.724 mph for every message event. 
 
 ```
 //To avoid jerk but also decelerates hard enough if the vehicle in front brakes suddenly. 
 
-ref_vel -= 1.0;
+ref_vel -= 0.724;
 
 // If there is vehicle in front of ego, the ego will match its speed. 
 // Times 2.24 to convert to mph
@@ -153,22 +153,4 @@ The way points are added is also based on the D position, to ensure the smooth t
 
 # The car is able to change lanes
 
-The ego vehicle has successfully changed lane, following trajectory created based on those 3 added points. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+The ego vehicle has successfully changed lane, following trajectory created based on those 3 added points.
