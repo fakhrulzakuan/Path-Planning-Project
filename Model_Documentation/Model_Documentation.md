@@ -11,27 +11,27 @@ double maximum_ref_vel = 49.5;
 I apply the limit between `line 261 to 265` 
 ```
 //To avoid jerk and only limit to maximum speed that has been set earlier. 
-ref_vel += 0.524;
+ref_vel += 0.424;
 if (ref_vel > maximum_ref_vel)
     {
-    ref_vel = maximum_ref_vel;
+    ref_vel -= 0.424;
     }
 ```
 
 ## Max Acceleration and Jerk are not Exceeded. 
 
-I avoided the jerk by incrementing the speed by 0.524 mph and decrementing by 0.724 mph for every message event. 
+I avoided the jerk by incrementing the speed by 0.424 mph and decrementing by 0.724 mph for every message event. 
 
 ```
 //To avoid jerk but also decelerates hard enough if the vehicle in front brakes suddenly. 
 
-ref_vel -= 0.724;
+ref_vel -= 0.424;
 
 // If there is vehicle in front of ego, the ego will match its speed. 
 // Times 2.24 to convert to mph
 if (ref_vel <= car_front_speed * 2.24)
     {
-    ref_vel = car_front_speed * 2.24;
+    ref_vel += 0.424;
     }
 ```
 

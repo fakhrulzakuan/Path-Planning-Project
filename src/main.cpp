@@ -189,13 +189,15 @@ int main() {
           if (car_front)
           {
             //To avoid jerk but also decelerates hard enough if the vehicle in front brakes suddenly. 
-            ref_vel -= 0.724;
+            ref_vel -= 0.424;
 
             // If there is vehicle in front of ego, the ego will match its speed. 
             // Times 2.24 to convert to mph
             if (ref_vel <= car_front_speed * 2.24)
               {
-                ref_vel = car_front_speed * 2.24;
+                //Should fix over acceleration
+                ref_vel += 0.424;
+                // ref_vel = car_front_speed * 2.24;
               }
 
             // To change lane, the distance between the ego and the front vehicle must at least 15.0 meter apart to avoid collision with the front vehicle. 
@@ -251,17 +253,18 @@ int main() {
             //Well if the distance_between is less than 15 m, ego vehicle starts to slow down. 
             else
             {
-              ref_vel -= 0.724;
+              ref_vel -= 0.424;
             }
 
           }
           else
           { 
             //To avoid jerk and only limit to maximum speed that has been set earlier. 
-            ref_vel += 0.524;
+            ref_vel += 0.424; //Reduced acceleration. 
             if (ref_vel > maximum_ref_vel)
             {
-            ref_vel = maximum_ref_vel;
+            //Should fix over deceleration
+            ref_vel -= 0.424;
             }
           }
           std::cout << "REF VEL :" << ref_vel << std::endl;
